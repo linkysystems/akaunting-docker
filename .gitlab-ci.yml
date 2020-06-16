@@ -50,4 +50,4 @@ deploy_to_stage:
       - stage
   script:
     - echo "Will notify update to '{"name":"$CI_REGISTRY_IMAGE", "tag":"stage"}'"
-    - curl --header "Content-Type:application/json" --request POST --data '{"name":"'"$CI_REGISTRY_IMAGE"'", "tag":"stage"}' https://keel-cluster1.linkysystems.com/v1/webhooks/native
+    - curl --header "Content-Type:application/json" --request POST --data '{"name":"'"$CI_REGISTRY_IMAGE"'", "tag":"stage"}' $CLUSTER_UPDATE_WEBHOOK_URL

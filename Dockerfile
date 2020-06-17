@@ -48,3 +48,8 @@ RUN wget -O akaunting.zip "https://akaunting.com/download.php?version=latest&utm
     && mkdir -p /var/www/html \
     && unzip akaunting.zip -d /var/www/html \
     && rm akaunting.zip
+
+RUN pecl install -o -f redis \
+    &&  rm -rf /tmp/pear \
+    &&  docker-php-ext-enable redis \
+    &&  echo "extension=redis.so" > /usr/local/etc/php/conf.d/redis.ini

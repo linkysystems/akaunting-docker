@@ -33,6 +33,11 @@ RUN docker-php-ext-install \
     pdo_mysql \
     zip
 
+RUN pecl install -o -f redis \
+    &&  rm -rf /tmp/pear \
+    &&  docker-php-ext-enable redis \
+    &&  echo "extension=redis.so" > /usr/local/etc/php/conf.d/redis.ini
+
 RUN a2enmod rewrite
 
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" \
@@ -49,7 +54,4 @@ RUN wget -O akaunting.zip "https://akaunting.com/download.php?version=latest&utm
     && unzip akaunting.zip -d /var/www/html \
     && rm akaunting.zip
 
-RUN pecl install -o -f redis \
-    &&  rm -rf /tmp/pear \
-    &&  docker-php-ext-enable redis \
-    &&  echo "extension=redis.so" > /usr/local/etc/php/conf.d/redis.ini
+RUN chown -R 33:33 /var/www/html
